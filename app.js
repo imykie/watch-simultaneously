@@ -4,13 +4,10 @@ const favicon = require("serve-favicon");
 const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const http = require("http");
-const url = require("url");
-const fs = require("fs");
-const request = require("request");
 
 const app = express();
 
+// add favicon
 app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 
 app.use(logger("dev"));
@@ -29,6 +26,7 @@ app.use(function (req, res, next) {
   next();
 });
 
+// all routes comes here
 app.get("/", (req, res) => {
     res.send("Simultaneouly!");
 });
