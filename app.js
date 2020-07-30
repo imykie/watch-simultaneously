@@ -32,6 +32,7 @@ app.use(function (req, res, next) {
 
 // all routes comes here
 app.get("/", (req, res) => {
+  res.status = 200;
   res.render("pages/index.ejs");
 });
 
