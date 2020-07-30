@@ -1,0 +1,15 @@
+{
+  "name": "simultaneously",
+  "version": "1.0.0",
+  "description": "A project that allows you watch YouTube videos simultaneously",
+  "main": "app.js",
+  "scripts": {
+    "test": "node test",
+    "start": "node ./bin/run.js"
+  },
+  "author": "Michael Olatunji",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
