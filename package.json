@@ -4,8 +4,9 @@
   "description": "A project that allows you watch YouTube videos simultaneously",
   "main": "app.js",
   "scripts": {
-    "test": "node test",
-    "start": "nodemon ./bin/run.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./bin/run.js",
+    "start": "node ./bin/run.js"
   },
   "author": "Michael Olatunji",
   "license": "ISC",

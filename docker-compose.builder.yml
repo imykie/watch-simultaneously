@@ -1,0 +1,33 @@
+version: '2.1'
+
+services:
+  develop:
+    image: node:latest
+    volumes:
+      - nodemodules:/usr/src/service/node_modules
+      - .:/usr/src/service
+    working_dir: /usr/src/service
+  
+  install:
+    extends:
+      service: develop
+    command: npm install
+
+  build:
+    extends:
+      service: develop
+    command: npm build
+  
+  test:
+    extends:
+      service: develop
+    command: npm test
+
+  start:
+    extends:
+      service: develop
+    command: npm start
+
+volumes:
+  nodemodules:
+    external: true
