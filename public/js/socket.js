@@ -1,11 +1,11 @@
-const socket = io('http://localhost:3000', {transports: ['websocket']});
+const socket = io("http://localhost:3000", { transports: ["websocket"] });
 
-socket.on('connect', function () {
-  console.log('connected!');
-  socket.emit('greet', { message: 'Hello Mr.Server!' });
+socket.on("connect", function () {
+  console.log("connected!");
+  socket.emit("greet", { message: "Hello Mr.Server!" });
 });
 
-socket.on('respond', function (data) {
+socket.on("respond", function (data) {
   console.log(data);
 });
 
@@ -20,26 +20,38 @@ socket.on('respond', function (data) {
 // });
 
 socket.on("disconnect", () => {
-    console.log("disconnect")
+  console.log("disconnect");
 });
 
-const onPlay = (data) => {
+const onPlay = data => {
   socket.emit("onPlay", data);
-  socket.on("hasPlayed", (resp) => {
-    console.log(resp)
-  })
-}
+  socket.on("event", resp => {
+    if (resp.action === "play") {
+      console.log(resp);
+      player.seekTo(Math.round(resp.time));
+      player.playVideo();
+    }
+  });
+};
 
-const onPause = (data) => {
+const onPause = data => {
   socket.emit("onPause", data);
-  socket.on("hasPaused", (resp) => {
-    console.log(resp)
-  })
-}
+  socket.on("event", resp => {
+    if (resp.action === "pause") {
+      console.log(resp);
+      player.seekTo(Math.round(resp.time));
+      player.pauseVideo();
+    }
+  });
+};
 
-const onSeek = (data) => {
+const onSeek = data => {
   socket.emit("onSeek", data);
-  socket.on("hasSeek", (resp) => {
-    console.log(resp)
-  })
-}
+  socket.on("event", resp => {
+    if (resp.action === "seek") {
+      console.log(resp);
+      player.seekTo(Math.round(resp.time));
+      player.playVideo();
+    }
+  });
+};

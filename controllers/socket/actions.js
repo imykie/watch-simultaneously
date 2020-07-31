@@ -1,35 +1,35 @@
 function onPlay(socket) {
   socket.on("onPlay", function (data) {
     console.log(data);
-    socket.emit("hasPlayed", { success: true, message: "playing" });
+    socket.emit("event", { success: true, action: "play", time: data.time });
   });
 }
 
 function onPause(socket) {
   socket.on("onPause", function (data) {
     console.log(data);
-    socket.emit("hasPaused", { success: true, message: "paused" });
+    socket.emit("event", { success: true, action: "pause", time: data.time });
   });
 }
 
 function onSeek(socket) {
   socket.on("onSeek", function (data) {
     console.log(data);
-    socket.emit("hasSeek", { success: true, message: "found" });
+    socket.emit("event", { success: true, action: "seek", time: data.time });
   });
 }
 
 function onPrev(socket) {
   socket.on("onPrev", function (data) {
     console.log(data);
-    socket.emit("hasPrev", { success: true, message: "prev" });
+    socket.emit("event", { success: true, action: "prev" });
   });
 }
 
 function onNext(socket) {
   socket.on("onNext", function (data) {
     console.log(data);
-    socket.emit("hasNext", { success: true, message: "next" });
+    socket.emit("event", { success: true, action: "next" });
   });
 }
 
