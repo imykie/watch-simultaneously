@@ -1,4 +1,4 @@
-var socket = io('http://localhost:3000', {transports: ['websocket']});
+const socket = io('http://localhost:3000', {transports: ['websocket']});
 
 socket.on('connect', function () {
   console.log('connected!');
@@ -22,3 +22,24 @@ socket.on('respond', function (data) {
 socket.on("disconnect", () => {
     console.log("disconnect")
 });
+
+const onPlay = (data) => {
+  socket.emit("onPlay", data);
+  socket.on("hasPlayed", (resp) => {
+    console.log(resp)
+  })
+}
+
+const onPause = (data) => {
+  socket.emit("onPause", data);
+  socket.on("hasPaused", (resp) => {
+    console.log(resp)
+  })
+}
+
+const onSeek = (data) => {
+  socket.emit("onSeek", data);
+  socket.on("hasSeek", (resp) => {
+    console.log(resp)
+  })
+}

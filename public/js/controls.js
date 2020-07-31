@@ -99,6 +99,7 @@ progressBar.click(function (event) {
   destination = (videoState / 100) * progressBarWidth - 10;
   let currentState = Math.round((videoState / 100) * player.getDuration());
   player.seekTo(currentState, true);
+  onSeek({ action: "seek", value: currentState });
   progressBox.css("margin-left", destination);
   console.log(
     divOffset,
@@ -111,6 +112,8 @@ progressBar.click(function (event) {
 
 play.click(function () {
   if (player.playVideo()) {
+    const data = { action: "play" };
+    onPlay(data);
     pause.css("display", "block");
     play.css("display", "none");
   }
@@ -118,6 +121,8 @@ play.click(function () {
 
 pause.click(function () {
   if (player.pauseVideo()) {
+    const data = { action: "pause" };
+    onPause(data);
     play.css("display", "block");
     pause.css("display", "none");
   }

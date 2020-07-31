@@ -1,4 +1,5 @@
 const app = require("../app");
+const useSocket = require("../controllers/socket");
 const statusMonitor = require("express-status-monitor");
 const debug = require("debug")(" :server");
 const http = require("http");
@@ -7,7 +8,8 @@ app.set("port", port);
 
 // connect socket io
 const server = http.createServer(app);
-const io = require("socket.io")(server);
+const io = useSocket(server);
+// const io = require("socket.io")(server);
 
 // set express status monitor
 app.use(
@@ -29,18 +31,6 @@ app.use(
 
 // access status monitor on /status route
 app.get("/status", statusMonitor().pageRoute);
-
-io.on("connection", function (socket) {
-  console.log("connected socket!");
-
-  socket.on("greet", function (data) {
-    console.log(data);
-    socket.emit("respond", { hello: "Hey, Mr.Client!" });
-  });
-  socket.on("disconnect", function () {
-    console.log("Socket disconnected");
-  });
-});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
