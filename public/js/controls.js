@@ -48,9 +48,21 @@ function onYouTubeIframeAPIReady() {
 
 // The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-  if (player.getPlaylist() > 0 || player.getPlaylist() === null) {
+  const hasPlaylist = player.getPlaylist();
+  const playerStatus = player.getPlayerState();
+  if (hasPlaylist > 0 || hasPlaylist === null) {
     prev.css("display", "none");
     next.css("display", "none");
+  }
+
+  if (playerStatus === 0 || playerStatus === 2) {
+    play.css("display", "block");
+    pause.css("display", "none");
+  }
+
+  if (playerStatus === 1) {
+    pause.css("display", "block");
+    play.css("display", "none");
   }
   event.target.playVideo();
   setInterval(() => {
@@ -121,12 +133,10 @@ next.click(function () {
 
 backward.click(function () {
   let currentState = Math.round((videoState / 100) * player.getDuration());
-  player.seekTo(currentState - 10, true);
+  player.seekTo(currentState - 20, true);
 });
 
 forward.click(function () {
   let currentState = Math.round((videoState / 100) * player.getDuration());
-  player.seekTo(currentState + 10, true);
+  player.seekTo(currentState + 20, true);
 });
-
-
