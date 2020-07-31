@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <%- include ("../partials/head") %>
+    <style>
+    </style>
 </head>
 <body>
 <header>
@@ -14,51 +16,50 @@
         <p>Watch YouTube videos with your friends simultaneously</p>
     </div>
 </div>
-<div class="container">
-    <div id="ytplayer"></div>  
+<div class="container mx-auto">
+    <div id="ytplayer"></div>
+    <div class="d-flex" id="player-controls-container">
+        <div class="p-2" id="prev">
+            <i class="fa fa-step-backward mt-2"></i>
+        </div>
+        <div class="p-2" id="backward">
+            <i class="fa fa-backward mt-2"></i>
+        </div>
+        <div class="p-2" id="play">
+            <i class="fa fa-play mt-1" style="font-size: 24px;"></i>
+        </div>
+        <div class="p-2" id="pause">
+            <i class="fa fa-pause mt-1" style="font-size: 24px;"></i>
+        </div>
+        <div class="p-2" id="forward">
+            <i class="fa fa-forward mt-2"></i>
+        </div>
+        <div class="p-2" id="next">
+            <i class="fa fa-step-forward mt-2"></i>
+        </div>
+        <div class="p-2" id="volume-up">
+            <i class="fa fa-volume-up mt-2"></i>
+        </div>
+        <div class="p-2" id="volume-down">
+            <i class="fa fa-volume-down mt-2"></i>
+        </div>
+        <div class="p-2" id="volume-off">
+            <i class="fa fa-volume-off mt-2"></i>
+        </div>
+        <div class="slider-container flex">
+            <input type="range" id="slider"  min='0' max='100' value='0' />
+            <div class="count">0</div>
+            <div class="fill"></div>
+        </div>
+        <div class="px-4 py-2 flex-fill">
+            <div class="progressbar py-3">
+                <div class="progress"></div>
+                <div class="progress-box"></div>
+            </div>
+        </div>
+    </div>
+    
 </div>
-<script>
-    // 2. This code loads the IFrame Player API code asynchronously.
-    const tag = document.createElement('script');
-
-    tag.src = "https://www.youtube.com/iframe_api";
-    const firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    // 3. This function creates an <iframe> (and YouTube player)
-    //    after the API code downloads.
-    let player;
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('ytplayer', {
-        height: '390',
-        width: '640',
-        videoId: '7ghhRHRP6t4',
-        events: {
-          'onReady': onPlayerReady,
-          'onStateChange': onPlayerStateChange
-        }
-      });
-    }
-
-    // 4. The API will call this function when the video player is ready.
-    function onPlayerReady(event) {
-      event.target.playVideo();
-    }
-
-    // 5. The API calls this function when the player's state changes.
-    //    The function indicates that when playing a video (state=1),
-    //    the player should play for six seconds and then stop.
-    var done = false;
-    function onPlayerStateChange(event) {
-      if (event.data == YT.PlayerState.PLAYING && !done) {
-        setTimeout(stopVideo, 6000);
-        done = true;
-      }
-    }
-    function stopVideo() {
-      player.stopVideo();
-    }
-  </script>
 
 <%- include ("../partials/foot") %>
 
