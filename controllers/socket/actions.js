@@ -1,7 +1,7 @@
-function onAction(socket) {
+function onAction(io, socket) {
   socket.on("event", function (data) {
     console.log(data);
-    socket.broadcast.emit("event", {
+    io.emit("event", {
       success: true,
       action: data.action,
       time: data.time

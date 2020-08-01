@@ -12,7 +12,7 @@ function Socket(server) {
       socket.emit("respond", { hello: "Hey, Mr.Client!" });
     });
 
-    onAction(socket);
+    onAction(io, socket);
 
     socket.on("disconnect", function () {
       console.log("Socket disconnected");
