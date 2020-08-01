@@ -66,11 +66,10 @@ function onPlayerReady(event) {
   }
   event.target.playVideo();
   setInterval(() => {
-    videoState = Number(
-      (player.getCurrentTime() / player.getDuration()) * 100
-    ).toFixed(2);
+    videoState = Number((player.getCurrentTime() / player.getDuration()) * 100);
     destination = (videoState / 100) * progressBarWidth - 10;
     progressBox.css("margin-left", destination);
+    // let data = { action: "play", time: videoState };
   }, 200);
 }
 
@@ -95,25 +94,26 @@ function onPlayerError(event) {
 progressBar.click(function (event) {
   const divOffset = $(this).offset();
   let currentPosition = event.clientX - divOffset.left;
-  videoState = Number(((currentPosition / progressBarWidth) * 100).toFixed(2));
+  videoState = Number((currentPosition / progressBarWidth) * 100);
   destination = (videoState / 100) * progressBarWidth - 10;
-  let currentState = Math.round((videoState / 100) * player.getDuration());
-  player.seekTo(currentState, true);
-  onSeek({ action: "seek", time: currentState });
+  let currentState = (videoState / 100) * player.getDuration();
+  // player.seekTo(currentState, true);
+  const data = { action: "seek", time: currentState };
+  socket.emit("event", data);
   progressBox.css("margin-left", destination);
-  console.log(
-    divOffset,
-    currentPosition,
-    videoState,
-    destination,
-    currentState
-  );
+  // console.log(
+  //   divOffset,
+  //   currentPosition,
+  //   videoState,
+  //   destination,
+  //   currentState
+  // );
 });
 
 play.click(function () {
   if (player.playVideo()) {
     const data = { action: "play", time: player.getCurrentTime() };
-    onPlay(data);
+    socket.emit("event", data);
     pause.css("display", "block");
     play.css("display", "none");
   }
@@ -122,7 +122,7 @@ play.click(function () {
 pause.click(function () {
   if (player.pauseVideo()) {
     const data = { action: "pause", time: player.getCurrentTime() };
-    onPause(data);
+    socket.emit("event", data);
     play.css("display", "block");
     pause.css("display", "none");
   }

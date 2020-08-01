@@ -1,5 +1,3 @@
-const socket = io("http://localhost:3000", { transports: ["websocket"] });
-
 socket.on("connect", function () {
   console.log("connected!");
   socket.emit("greet", { message: "Hello Mr.Server!" });
@@ -7,6 +5,26 @@ socket.on("connect", function () {
 
 socket.on("respond", function (data) {
   console.log(data);
+});
+
+socket.on("event", resp => {
+  if (resp.action === "play") {
+    console.log(resp);
+    player.playVideo();
+    if (Math.abs(player.getCurrentTime() - resp.time) > 1) {
+      player.seekTo(resp.time);
+    }
+  } else if (resp.action === "pause") {
+    console.log(resp);
+    player.pauseVideo();
+    if (Math.abs(player.getCurrentTime() - resp.time) > 1) {
+      player.seekTo(resp.time);
+    }
+  } else if (resp.action === "seek") {
+    console.log(resp);
+    player.seekTo(resp.time);
+    player.playVideo();
+  }
 });
 
 // const socket = io('http://localhost:3000', {
@@ -22,36 +40,3 @@ socket.on("respond", function (data) {
 socket.on("disconnect", () => {
   console.log("disconnect");
 });
-
-const onPlay = data => {
-  socket.emit("onPlay", data);
-  socket.on("event", resp => {
-    if (resp.action === "play") {
-      console.log(resp);
-      player.seekTo(Math.round(resp.time));
-      player.playVideo();
-    }
-  });
-};
-
-const onPause = data => {
-  socket.emit("onPause", data);
-  socket.on("event", resp => {
-    if (resp.action === "pause") {
-      console.log(resp);
-      player.seekTo(Math.round(resp.time));
-      player.pauseVideo();
-    }
-  });
-};
-
-const onSeek = data => {
-  socket.emit("onSeek", data);
-  socket.on("event", resp => {
-    if (resp.action === "seek") {
-      console.log(resp);
-      player.seekTo(Math.round(resp.time));
-      player.playVideo();
-    }
-  });
-};

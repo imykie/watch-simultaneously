@@ -1,5 +1,5 @@
 const socketIO = require("socket.io");
-const { onPlay, onPause, onSeek } = require("./actions");
+const { onAction } = require("./actions");
 
 function Socket(server) {
   const io = socketIO(server);
@@ -12,9 +12,7 @@ function Socket(server) {
       socket.emit("respond", { hello: "Hey, Mr.Client!" });
     });
 
-    onPlay(socket);
-    onPause(socket);
-    onSeek(socket);
+    onAction(socket);
 
     socket.on("disconnect", function () {
       console.log("Socket disconnected");
