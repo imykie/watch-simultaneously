@@ -74,7 +74,7 @@
 
     function fetchVideos(){
         let data
-        return fetch('https://www.googleapis.com/youtube/v3/search?key=AIzaSyASBMpTQ83QCQ-JkRAbCix_iy5qVDEZTzY&part=id,snippet&type=video&maxResults=20&q=javascript', {
+        return fetch('https://www.googleapis.com/youtube/v3/search?&part=id,snippet&type=video&maxResults=20&q=javascript', {
             method: 'get',
         }).then((resp => resp.json()))
             .then(data => {
