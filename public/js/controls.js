@@ -14,7 +14,6 @@ const prev = $("#prev");
 const next = $("#next");
 const backward = $("#backward");
 const forward = $("#forward");
-
 let player, videoState, destination;
 let done = false;
 
@@ -27,7 +26,7 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 // 3. This function creates an <iframe> (and YouTube player)
 //    after the API code downloads.
 function onYouTubeIframeAPIReady() {
-  player = new YT.Player("ytplayer", {
+  player = new YT.Player("myplayer", {
     height: PLAYER_HEIGHT,
     width: PLAYER_WIDTH,
     videoId: "M7lc1UVf-VE", //'7ghhRHRP6t4',
